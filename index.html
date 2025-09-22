@@ -2,109 +2,120 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>CUENTA REGRESIVA</title>
+  <title>MOMENTO CERO</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #e4e0db;
-      color: #1a1a1a;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .container {
-      background-color: white;
-      padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      width: 95%;
-      max-width: 600px;
+    * {
       box-sizing: border-box;
     }
 
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+      background-color: #d9d6d2;
+    }
+
+    .left {
+      width: 50%;
+      background-image: url("your-image.jpg"); /* Replace with image URL or path */
+      background-size: cover;
+      background-position: center;
+    }
+
+    .right {
+      width: 50%;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #1a1a1a;
+      text-align: center;
+    }
+
     h1 {
-      font-size: 50px;
+      margin: 0;
+      font-size: 38px;
+      font-weight: bold;
+    }
+
+    #countdown-container {
+      background-color: white;
+      padding: 20px 40px;
+      margin-top: 30px;
+      max-width: 500px;
+      width: 100%;
+      border-radius: 6px;
+      font-size: 30px;
+      overflow: hidden; /* 👈 Prevents scrolling */
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .countdown-label {
+      font-weight: bold;
+      font-size: 32px;
       margin-bottom: 20px;
-      text-transform: uppercase;
     }
 
-    .countdown span {
-      display: block;
-      font-size: 48px;
-      font-weight: bold;
-      margin: 10px 0;
-      text-transform: uppercase;
+    .countdown-time {
+      line-height: 1.6;
+      font-size: 32px;
     }
 
-    .message {
-      font-size: 48px;
-      font-weight: bold;
+    .finished {
       color: red;
-      animation: flash 1s infinite;
-      text-transform: uppercase;
-    }
-
-    @keyframes flash {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    .spacer {
-      height: 300px; /* Prevent scrolling in iframe */
+      font-weight: bold;
+      font-size: 36px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>CUENTA REGRESIVA HASTA EL 10 DE JULIO</h1>
-    <div class="countdown" id="countdown">
-      <span id="days"></span>
-      <span id="hours"></span>
-      <span id="minutes"></span>
-      <span id="seconds"></span>
+  <div class="left"></div>
+  <div class="right">
+    <h1>¿QUÉ HARÁ EL GOBIERNO CUBANO?</h1>
+    <h1>¿QUÉ HARÁ LUISMA?</h1>
+
+    <div id="countdown-container">
+      <div class="countdown-label">CUENTA REGRESIVA HASTA EL 10 DE JULIO</div>
+      <div id="countdown" class="countdown-time"></div>
+      <div id="finished" class="finished" style="display:none;">00:00:00:00<br>¡YA BASTA!</div>
     </div>
   </div>
 
-  <div class="spacer"></div>
-
   <script>
-    const countdown = () => {
-      const endDate = new Date("July 10, 2026 12:00:00").getTime();
+    const countdown = document.getElementById("countdown");
+    const finished = document.getElementById("finished");
+    const targetDate = new Date("July 10, 2026 12:00:00").getTime();
+
+    function updateCountdown() {
       const now = new Date().getTime();
-      const timeLeft = endDate - now;
+      const distance = targetDate - now;
 
-      const countdownEl = document.getElementById("countdown");
-
-      if (timeLeft <= 0) {
-        countdownEl.innerHTML = `
-          <span>00 DÍAS</span>
-          <span>00 HORAS</span>
-          <span>00 MINUTOS</span>
-          <span>00 SEGUNDOS</span>
-          <div class="message">¡YA BASTA!</div>
-        `;
+      if (distance <= 0) {
+        countdown.style.display = "none";
+        finished.style.display = "block";
         return;
       }
 
-      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      document.getElementById("days").innerText = `${String(days).padStart(2, '0')} DÍAS`;
-      document.getElementById("hours").innerText = `${String(hours).padStart(2, '0')} HORAS`;
-      document.getElementById("minutes").innerText = `${String(minutes).padStart(2, '0')} MINUTOS`;
-      document.getElementById("seconds").innerText = `${String(seconds).padStart(2, '0')} SEGUNDOS`;
-    };
+      countdown.innerHTML = `
+        ${days} DÍAS<br>
+        ${hours} HORAS<br>
+        ${minutes} MINUTOS<br>
+        ${seconds} SEGUNDOS
+      `;
+    }
 
-    countdown();
-    setInterval(countdown, 1000);
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
