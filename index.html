@@ -8,63 +8,66 @@
     html, body {
       margin: 0;
       padding: 0;
-      background-color: #ffffff;
+      background: #ffffff;
+      font-family: Helvetica, Arial, sans-serif;
       overflow: hidden;
-      font-family: Arial, sans-serif;
     }
 
     .container {
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 0vh;
+      height: 100vh;
+      box-sizing: border-box;
+      padding: 20px;
     }
 
     .countdown-box {
-      text-align: center;
-      padding: 100px;
       background-color: white;
-      color: black;
-      font-size: 100px;
+      padding: 40px 60px;
+      text-align: center;
+      border-radius: 0;
+      box-shadow: none;
+      border: none;
+    }
+
+    .countdown-box div {
+      font-size: 48px;
       font-weight: bold;
-      text-transform: uppercase;
-      box-sizing: border-box;
-      max-width: 200vw;
+      margin: 10px 0;
+      letter-spacing: 1px;
     }
 
-    .flash {
-      animation: flash 1s infinite;
-    }
-
-    @keyframes flash {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+    @media (max-width: 600px) {
+      .countdown-box div {
+        font-size: 36px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="countdown-box" id="countdown-box">
-      <div id="heading"></div>
-      <div id="countdown"></div>
+    <div class="countdown-box" id="countdown">
+      <!-- Countdown inserts here -->
     </div>
   </div>
 
   <script>
-    const countdownEl = document.getElementById("countdown");
-    const headingEl = document.getElementById("heading");
-    const countdownBox = document.getElementById("countdown-box");
-
-    const endDate = new Date("July 10, 2026 12:00:00").getTime();
+    const countdownEl = document.getElementById('countdown');
+    const targetDate = new Date("July 10, 2026 12:00:00").getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
-      const distance = endDate - now;
+      const distance = targetDate - now;
 
-      if (distance <= 0) {
-        headingEl.textContent = "¡YA BASTA!";
-        countdownEl.innerHTML = "00:00:00:00";
-        countdownEl.classList.add("flash");
+      if (distance < 0) {
+        countdownEl.innerHTML = `
+          <div>00 DÍAS</div>
+          <div>00 H</div>
+          <div>00 MIN</div>
+          <div>¡YA BASTA!</div>
+        `;
+        countdownEl.style.animation = "flash 1s infinite alternate";
         return;
       }
 
@@ -74,15 +77,15 @@
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       countdownEl.innerHTML = `
-        ${days} DÍAS<br>
-        ${hours.toString().padStart(2, '0')} HORAS<br>
-        ${minutes.toString().padStart(2, '0')} MINUTOS<br>
-        ${seconds.toString().padStart(2, '0')} SEGUNDOS
+        <div>${days} DÍAS</div>
+        <div>${hours.toString().padStart(2, '0')} H</div>
+        <div>${minutes.toString().padStart(2, '0')} MIN</div>
+        <div>${seconds.toString().padStart(2, '0')} S</div>
       `;
     }
 
-    updateCountdown();
     setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
 </body>
 </html>
