@@ -7,36 +7,44 @@
 <style>
 body {
 margin: 0;
-background-color: #f5f5f5;
+padding: 0;
+background-color: #e0e0e0; /* Adjusted to match Squarespace light gray */
 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-.container {
 display: flex;
-flex-direction: column;
 justify-content: center;
 align-items: center;
-padding: 40px 20px;
-text-align: center;
 height: 100vh;
-box-sizing: border-box;
+overflow: hidden; /* prevents scroll bars */
 }
-.title {
-font-size: 1rem;
-margin-bottom: 20px;
+
+.container {
+background-color: #e0e0e0;
+padding: 40px;
+text-align: center;
+box-sizing: border-box;
+width: 100%;
+max-width: 640px;
+}
+
+h1 {
+font-size: 20px;
+font-weight: 500;
+margin-bottom: 30px;
 color: #333;
 }
-.countdown {
-font-size: 2rem;
+
+#countdown {
+font-size: 28px;
 font-weight: bold;
-line-height: 2.5rem;
+line-height: 1.8;
 color: #111;
 }
 </style>
 </head>
 <body>
 <div class="container">
-<div class="title">Cuenta regresiva hasta el 10 de Julio de 2026</div>
-<div id="countdown" class="countdown">Cargando…</div>
+<h1>Cuenta regresiva hasta el 10 de Julio de 2026</h1>
+<div id="countdown"></div>
 </div>
 
 <script>
@@ -46,7 +54,7 @@ const now = new Date().getTime();
 const diff = targetDate - now;
 
 if (diff <= 0) {
-document.getElementById("countdown").innerText = "¡Tiempo agotado!";
+document.getElementById("countdown").innerText = "00 días 00 horas 00 minutos 00 segundos";
 clearInterval(timerInterval);
 return;
 }
@@ -56,12 +64,17 @@ const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
 const minutes = Math.floor((diff / (1000 * 60)) % 60);
 const seconds = Math.floor((diff / 1000) % 60);
 
-const display = `${days} días\n${hours} horas\n${minutes} minutos\n${seconds} segundos`;
+const display =
+`${days} días\n` +
+`${hours} horas\n` +
+`${minutes} minutos\n` +
+`${seconds} segundos`;
+
 document.getElementById("countdown").innerText = display;
 }
 
 const timerInterval = setInterval(updateCountdown, 1000);
-updateCountdown();
+updateCountdown(); // Initial run
 </script>
 </body>
 </html>
