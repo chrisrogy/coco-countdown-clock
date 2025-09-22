@@ -2,136 +2,82 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>LUISMA COUNTDOWN</title>
+  <title>Cuenta Regresiva</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
+    html, body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #dcd8d6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1200px;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-    }
-
-    .left {
-      flex: 1;
-      text-align: center;
-    }
-
-    .left img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .right {
-      flex: 1;
-      text-align: center;
-      padding: 20px;
-    }
-
-    h1, h2 {
-      margin: 0;
-      font-size: 2.4em;
-      color: #111;
-    }
-
-    .countdown-box {
+      padding: 0;
       background-color: white;
-      padding: 40px 20px;
-      margin-top: 30px;
-      box-sizing: border-box;
-      max-width: 400px;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    #container {
       width: 100%;
+      height: 100vh;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-
-    .label {
+    #countdown-box {
+      background-color: white;
+      padding: 20px 40px;
+      text-align: center;
+      font-size: 2.4vw;
       font-weight: bold;
-      font-size: 24px;
-      margin-bottom: 30px;
       text-transform: uppercase;
+      color: black;
+      box-shadow: none;
     }
-
-    .time {
-      font-size: 26px;
-      font-weight: bold;
-      text-transform: uppercase;
-      line-height: 2;
+    .expired {
+      animation: flash 1s infinite alternate;
     }
-
-    .yabasta {
-      color: red;
-      font-size: 36px;
-      margin-top: 20px;
-      animation: blink 1s step-start infinite;
-      text-transform: uppercase;
-    }
-
-    @keyframes blink {
-      50% {
-        opacity: 0;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
+    @keyframes flash {
+      0%   { color: red; background-color: white; }
+      100% { color: white; background-color: red; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="left">
-      <img src="LUISMA_FACE_IMAGE.jpg" alt="Luisma tras las rejas">
-    </div>
-    <div class="right">
-      <h1>¿QUÉ HARÁ EL GOBIERNO CUBANO?</h1>
-      <h2>¿QUÉ HARÁ LUISMA?</h2>
-      <div class="countdown-box">
-        <div class="label">CUENTA REGRESIVA HASTA EL 10 DE JULIO</div>
-        <div id="countdown" class="time"></div>
-        <div id="expired" class="yabasta" style="display: none;">¡YA BASTA!</div>
-      </div>
+  <div id="container">
+    <div id="countdown-box">
+      <div id="heading">CUENTA REGRESIVA HASTA EL 10 DE JULIO</div>
+      <div id="countdown"></div>
     </div>
   </div>
 
   <script>
+    const countdown = document.getElementById("countdown");
+    const heading = document.getElementById("heading");
+    const endDate = new Date("July 10, 2026 12:00:00").getTime();
+
     function updateCountdown() {
-      const endDate = new Date("2026-07-10T12:00:00").getTime();
       const now = new Date().getTime();
-      const timeLeft = endDate - now;
+      const distance = endDate - now;
 
-      const countdown = document.getElementById("countdown");
-      const expired = document.getElementById("expired");
-
-      if (timeLeft <= 0) {
-        countdown.innerHTML = `00 DÍAS<br>00 HORAS<br>00 MINUTOS<br>00 SEGUNDOS`;
-        expired.style.display = "block";
+      if (distance <= 0) {
+        heading.innerText = "¡YA BASTA!";
+        countdown.innerHTML = "00 DÍAS<br>00 HORAS<br>00 MINUTOS<br>00 SEGUNDOS";
+        countdown.classList.add("expired");
+        clearInterval(interval);
         return;
       }
 
-      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      countdown.innerHTML = 
-        `${days} DÍAS<br>${hours} HORAS<br>${minutes} MINUTOS<br>${seconds} SEGUNDOS`;
+      countdown.innerHTML =
+        `${String(days).padStart(2, '0')} DÍAS<br>` +
+        `${String(hours).padStart(2, '0')} HORAS<br>` +
+        `${String(minutes).padStart(2, '0')} MINUTOS<br>` +
+        `${String(seconds).padStart(2, '0')} SEGUNDOS`;
     }
 
+    const interval = setInterval(updateCountdown, 1000);
     updateCountdown();
-    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
