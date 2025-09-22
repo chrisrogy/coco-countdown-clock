@@ -3,64 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <title>Cuenta Regresiva</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background-color: white;
+      background-color: #d9d7d6; /* Matches your Squarespace gray */
       font-family: Arial, sans-serif;
+      text-align: center;
       overflow: hidden;
     }
+
     #container {
-      width: 100%;
-      height: 100vh;
       background-color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    #countdown-box {
-      background-color: white;
-      padding: 20px 40px;
-      text-align: center;
-      font-size: 2.4vw;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: black;
+      padding: 30px;
+      width: 520px;
+      margin: 60px auto;
+      box-sizing: border-box;
       box-shadow: none;
     }
-    .expired {
-      animation: flash 1s infinite alternate;
+
+    .headline {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 35px;
+      letter-spacing: 0.5px;
     }
+
+    .time-unit {
+      font-size: 36px;
+      font-weight: bold;
+      margin: 12px 0;
+      line-height: 1.1;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .flashing {
+      animation: flash 1s infinite;
+    }
+
     @keyframes flash {
-      0%   { color: red; background-color: white; }
-      100% { color: white; background-color: red; }
+      0%, 100% { color: red; }
+      50% { color: black; }
     }
   </style>
 </head>
 <body>
   <div id="container">
-    <div id="countdown-box">
-      <div id="heading">CUENTA REGRESIVA HASTA EL 10 DE JULIO</div>
-      <div id="countdown"></div>
+    <div class="headline">CUENTA REGRESIVA HASTA EL 10 DE JULIO</div>
+    <div id="countdown">
+      <div id="days" class="time-unit">DÍAS</div>
+      <div id="hours" class="time-unit">HORAS</div>
+      <div id="minutes" class="time-unit">MINUTOS</div>
+      <div id="seconds" class="time-unit">SEGUNDOS</div>
     </div>
+    <div id="end-message" class="headline hidden flashing">00:00:00:00<br>¡YA BASTA!</div>
   </div>
 
   <script>
-    const countdown = document.getElementById("countdown");
-    const heading = document.getElementById("heading");
     const endDate = new Date("July 10, 2026 12:00:00").getTime();
+    const countdown = document.getElementById("countdown");
+    const endMessage = document.getElementById("end-message");
 
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = endDate - now;
 
       if (distance <= 0) {
-        heading.innerText = "¡YA BASTA!";
-        countdown.innerHTML = "00 DÍAS<br>00 HORAS<br>00 MINUTOS<br>00 SEGUNDOS";
-        countdown.classList.add("expired");
-        clearInterval(interval);
+        countdown.classList.add("hidden");
+        endMessage.classList.remove("hidden");
         return;
       }
 
@@ -69,15 +82,14 @@
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      countdown.innerHTML =
-        `${String(days).padStart(2, '0')} DÍAS<br>` +
-        `${String(hours).padStart(2, '0')} HORAS<br>` +
-        `${String(minutes).padStart(2, '0')} MINUTOS<br>` +
-        `${String(seconds).padStart(2, '0')} SEGUNDOS`;
+      document.getElementById("days").innerHTML = `${days} DÍAS`;
+      document.getElementById("hours").innerHTML = `${hours.toString().padStart(2, '0')} HORAS`;
+      document.getElementById("minutes").innerHTML = `${minutes.toString().padStart(2, '0')} MINUTOS`;
+      document.getElementById("seconds").innerHTML = `${seconds.toString().padStart(2, '0')} SEGUNDOS`;
     }
 
-    const interval = setInterval(updateCountdown, 1000);
     updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
