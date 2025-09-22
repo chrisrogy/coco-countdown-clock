@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Countdown to July 10, 2026</title>
+<title>Cuenta regresiva hasta el 10 julio de 2026</title>
 <style>
 body {
 background-color: white;
@@ -40,7 +40,7 @@ font-size: 1.2em;
 </style>
 </head>
 <body>
-<h1>Countdown to July 10, 2026</h1>
+<h1>Cuenta regreiva hasta el 10 de Julio de 2026</h1>
 <div id="countdown">Loading...</div>
 
 <script>
@@ -50,7 +50,7 @@ const now = new Date().getTime();
 const diff = targetDate - now;
 
 if (diff <= 0) {
-document.getElementById("countdown").innerText = "00:00:00 — Time’s Up!";
+document.getElementById("countdown").innerText = "00:00:00 — ¡Ya Basta!";
 clearInterval(timerInterval);
 return;
 }
@@ -61,10 +61,7 @@ const minutes = Math.floor((diff / (1000 * 60)) % 60);
 const seconds = Math.floor((diff / 1000) % 60);
 
 const display =
-(days > 0 ? `${days}d ` : '') +
-String(hours).padStart(2, '0') + ":" +
-String(minutes).padStart(2, '0') + ":" +
-String(seconds).padStart(2, '0');
+`${days} días ${hours} horas ${minutes} minutos ${seconds} segundos`;
 
 document.getElementById("countdown").innerText = display;
 }
