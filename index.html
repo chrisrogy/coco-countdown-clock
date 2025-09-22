@@ -1,51 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Cuenta regresiva</title>
+<meta charset="UTF-8">
+<title>Cuenta Regresiva</title>
 <style>
 body {
 margin: 0;
-padding: 0;
-background-color: #e0e0e0; /* Adjusted to match Squarespace light gray */
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+font-family: Arial, sans-serif;
+background-color: #ffffff;
+color: #111;
 display: flex;
 justify-content: center;
 align-items: center;
 height: 100vh;
-overflow: hidden; /* prevents scroll bars */
 }
 
 .container {
-background-color: white;
-padding: 40px;
 text-align: center;
+background-color: #ffffff;
+padding: 40px 60px;
+border-radius: 8px;
+box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+max-width: 900px;
+width: 90%;
 box-sizing: border-box;
-width: 100%;
-max-width: 640px;
 }
 
-h1 {
+h2 {
 font-size: 40px;
-font-weight: bold;
-line-height: 1.8;
 margin-bottom: 40px;
-color: #333;
+font-weight: 600;
 }
 
-#countdown {
+.countdown {
 font-size: 40px;
 font-weight: bold;
-line-height: 1.8;
-color: #111;
+line-height: 1.7em;
+white-space: pre-line;
+}
+
+.final-message {
+font-size: 64px;
+font-weight: bold;
+color: #c00000;
+}
+
+@media (max-width: 600px) {
+h2 {
+font-size: 26px;
+}
+
+.countdown {
+font-size: 28px;
+}
+
+.final-message {
+font-size: 42px;
+}
 }
 </style>
 </head>
 <body>
 <div class="container">
-<h1>Cuenta regresiva hasta el 10 de Julio</h1>
-<div id="countdown"></div>
+<h2 id="header">Cuenta regresiva hasta el 10 de Julio de 2026</h2>
+<div id="countdown" class="countdown">Cargando…</div>
 </div>
 
 <script>
@@ -55,7 +73,8 @@ const now = new Date().getTime();
 const diff = targetDate - now;
 
 if (diff <= 0) {
-document.getElementById("countdown").innerText = "00 días 00 horas 00 minutos 00 segundos";
+document.getElementById("header").style.display = "none";
+document.getElementById("countdown").innerHTML = '<div class="final-message">¡Ya Basta!</div>';
 clearInterval(timerInterval);
 return;
 }
@@ -75,7 +94,7 @@ document.getElementById("countdown").innerText = display;
 }
 
 const timerInterval = setInterval(updateCountdown, 1000);
-updateCountdown(); // Initial run
+updateCountdown();
 </script>
 </body>
 </html>
