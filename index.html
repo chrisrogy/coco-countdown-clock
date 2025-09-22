@@ -1,88 +1,73 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
 <title>Cuenta Regresiva</title>
 <style>
 body {
-margin: 0;
+background-color: #d9d5d1;
 font-family: Arial, sans-serif;
-background-color: #dad8d5;
+margin: 0;
+padding: 0;
+height: 100vh;
+overflow: hidden; /* prevents scrolling */
 display: flex;
 justify-content: center;
 align-items: center;
-min-height: 100vh;
 }
 
-.countdown-box {
+.container {
 background-color: white;
-padding: 60px 80px;
-border-radius: 8px;
+padding: 40px 60px;
 text-align: center;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-width: 100%;
-max-width: 720px;
-overflow: hidden;
+font-weight: bold;
+font-size: 42px; /* matches headline */
+box-shadow: 0 0 20px rgba(0,0,0,0.2);
 }
 
-.heading {
-font-size: 60px;
-font-weight: bold;
-margin-bottom: 40px;
-line-height: 1.2;
+.header {
+font-size: 42px;
+margin-bottom: 30px;
 }
 
-.time {
-font-size: 60px;
-font-weight: bold;
-margin: 30px 0;
-
+.countdown-line {
+margin: 8px 0;
 }
 </style>
 </head>
 <body>
-<div class="countdown-box">
-<div class="heading" id="headline">Cuenta regresiva hasta el 10 de Julio</div>
-<div class="time" id="days"></div>
-<div class="time" id="hours"></div>
-<div class="time" id="minutes"></div>
-<div class="time" id="seconds"></div>
+<div class="container">
+<div class="header">Cuenta regresiva hasta el 10 de Julio</div>
+<div id="countdown"></div>
 </div>
 
 <script>
-const headline = document.getElementById("headline");
-const daysEl = document.getElementById("days");
-const hoursEl = document.getElementById("hours");
-const minutesEl = document.getElementById("minutes");
-const secondsEl = document.getElementById("seconds");
-
-const countdownDate = new Date("July 10, 2026 12:00:00").getTime();
-
-const countdown = setInterval(() => {
+function updateCountdown() {
+const targetDate = new Date("July 10, 2026 12:00:00").getTime();
 const now = new Date().getTime();
-const distance = countdownDate - now;
+const diff = targetDate - now;
 
-if (distance < 0) {
-clearInterval(countdown);
-headline.innerText = "¡Ya basta!";
-daysEl.innerText = "";
-hoursEl.innerText = "";
-minutesEl.innerText = "";
-secondsEl.innerText = "";
+if (diff <= 0) {
+document.getElementById("countdown").innerHTML = "¡Ya basta!";
+clearInterval(timer);
 return;
 }
 
-const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+const minutes = Math.floor((diff / (1000 * 60)) % 60);
+const seconds = Math.floor((diff / 1000) % 60);
 
-daysEl.innerText = `${days} días`;
-hoursEl.innerText = `${hours} horas`;
-minutesEl.innerText = `${minutes} minutos`;
-secondsEl.innerText = `${seconds} segundos`;
-}, 1000);
+document.getElementById("countdown").innerHTML = `
+<div class="countdown-line">${days} días</div>
+<div class="countdown-line">${hours} horas</div>
+<div class="countdown-line">${minutes} minutos</div>
+<div class="countdown-line">${seconds} segundos</div>
+`;
+}
+
+const timer = setInterval(updateCountdown, 1000);
+updateCountdown();
 </script>
 </body>
 </html>
