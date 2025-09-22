@@ -1,47 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Cuenta regresiva hasta el 10 julio de 2026</title>
+<meta charset="UTF-8">
+<title>Cuenta regresiva a Julio 2026</title>
 <style>
 body {
-background-color: gray;
-color: black;
+background-color: #f2f2f2;
 font-family: Arial, sans-serif;
-margin: 0;
-padding: 0;
-height: 100vh;
 display: flex;
-align-items: center;
 justify-content: center;
-flex-direction: column;
+align-items: center;
+height: 100vh;
+margin: 0;
+}
+
+.countdown-container {
+background-color: #f2f2f2;
+padding: 40px;
+text-align: center;
+max-width: 600px;
+width: 90%;
+box-sizing: border-box;
 }
 
 h1 {
-font-size: 2em;
+font-size: 20px;
 margin-bottom: 20px;
+color: #222;
 }
 
 #countdown {
-font-size: 4em;
+font-size: 32px;
 font-weight: bold;
-}
-
-@media screen and (max-width: 600px) {
-#countdown {
-font-size: 2.5em;
-}
-
-h1 {
-font-size: 1.2em;
-}
+color: #111;
+line-height: 1.6;
 }
 </style>
 </head>
 <body>
-<h1>Cuenta regreiva hasta el 10 de Julio de 2026</h1>
-<div id="countdown">Loading...</div>
+<div class="countdown-container">
+<h1>Cuenta regresiva hasta el 10 de Julio de 2026</h1>
+<div id="countdown">Cargando...</div>
+</div>
 
 <script>
 function updateCountdown() {
@@ -50,7 +50,7 @@ const now = new Date().getTime();
 const diff = targetDate - now;
 
 if (diff <= 0) {
-document.getElementById("countdown").innerText = "00:00:00 — ¡Ya Basta!";
+document.getElementById("countdown").innerText = "00:00:00 – Se acabó el tiempo";
 clearInterval(timerInterval);
 return;
 }
@@ -60,14 +60,18 @@ const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
 const minutes = Math.floor((diff / (1000 * 60)) % 60);
 const seconds = Math.floor((diff / 1000) % 60);
 
-const display =
-`${days} días ${hours} horas ${minutes} minutos ${seconds} segundos`;
+const display = `
+${days} días<br>
+${hours} horas<br>
+${minutes} minutos<br>
+${seconds} segundos
+`;
 
-document.getElementById("countdown").innerText = display;
+document.getElementById("countdown").innerHTML = display;
 }
 
 const timerInterval = setInterval(updateCountdown, 1000);
-updateCountdown(); // Run once immediately
+updateCountdown(); // run once immediately
 </script>
 </body>
 </html>
