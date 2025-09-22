@@ -1,79 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cuenta Regresiva</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background-color: #d9d7d6; /* Matches your Squarespace gray */
-      font-family: Arial, sans-serif;
-      text-align: center;
+      background-color: #ffffff;
       overflow: hidden;
+      font-family: Arial, sans-serif;
     }
 
-    #container {
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .countdown-box {
+      text-align: center;
+      padding: 40px;
       background-color: white;
-      padding: 30px;
-      width: 520px;
-      margin: 60px auto;
+      color: black;
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
       box-sizing: border-box;
-      box-shadow: none;
+      max-width: 90vw;
     }
 
-    .headline {
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 35px;
-      letter-spacing: 0.5px;
-    }
-
-    .time-unit {
-      font-size: 36px;
-      font-weight: bold;
-      margin: 12px 0;
-      line-height: 1.1;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .flashing {
+    .flash {
       animation: flash 1s infinite;
     }
 
     @keyframes flash {
-      0%, 100% { color: red; }
-      50% { color: black; }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <div id="container">
-    <div class="headline">CUENTA REGRESIVA HASTA EL 10 DE JULIO</div>
-    <div id="countdown">
-      <div id="days" class="time-unit">DÍAS</div>
-      <div id="hours" class="time-unit">HORAS</div>
-      <div id="minutes" class="time-unit">MINUTOS</div>
-      <div id="seconds" class="time-unit">SEGUNDOS</div>
+  <div class="container">
+    <div class="countdown-box" id="countdown-box">
+      <div id="heading">CUENTA REGRESIVA HASTA EL 10 DE JULIO</div>
+      <div id="countdown"></div>
     </div>
-    <div id="end-message" class="headline hidden flashing">00:00:00:00<br>¡YA BASTA!</div>
   </div>
 
   <script>
+    const countdownEl = document.getElementById("countdown");
+    const headingEl = document.getElementById("heading");
+    const countdownBox = document.getElementById("countdown-box");
+
     const endDate = new Date("July 10, 2026 12:00:00").getTime();
-    const countdown = document.getElementById("countdown");
-    const endMessage = document.getElementById("end-message");
 
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = endDate - now;
 
       if (distance <= 0) {
-        countdown.classList.add("hidden");
-        endMessage.classList.remove("hidden");
+        headingEl.textContent = "¡YA BASTA!";
+        countdownEl.innerHTML = "00:00:00:00";
+        countdownEl.classList.add("flash");
         return;
       }
 
@@ -82,10 +73,12 @@
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      document.getElementById("days").innerHTML = `${days} DÍAS`;
-      document.getElementById("hours").innerHTML = `${hours.toString().padStart(2, '0')} HORAS`;
-      document.getElementById("minutes").innerHTML = `${minutes.toString().padStart(2, '0')} MINUTOS`;
-      document.getElementById("seconds").innerHTML = `${seconds.toString().padStart(2, '0')} SEGUNDOS`;
+      countdownEl.innerHTML = `
+        ${days} DÍAS<br>
+        ${hours.toString().padStart(2, '0')} HORAS<br>
+        ${minutes.toString().padStart(2, '0')} MINUTOS<br>
+        ${seconds.toString().padStart(2, '0')} SEGUNDOS
+      `;
     }
 
     updateCountdown();
