@@ -1,82 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Cuenta regresiva</title>
-<style>
-body {
-margin: 0;
-padding: 0;
-font-family: Arial, sans-serif;
-background-color: #e4e0db;
-color: #1a1a1a;
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh;
-overflow: hidden;
-}
+  <meta charset="UTF-8">
+  <title>CUENTA REGRESIVA</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #e4e0db;
+      color: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-.container {
-background-color: white;
-padding: 40px;
-border-radius: 8px;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-text-align: center;
-width: 95%;
-max-width: 600px;
-box-sizing: border-box;
-}
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 95%;
+      max-width: 600px;
+      box-sizing: border-box;
+    }
 
-h1 {
-font-size: 50px;
-margin-bottom: 20px;
-}
+    h1 {
+      font-size: 50px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
 
-.countdown span {
-display: block;
-font-size: 48px;
-font-weight: bold;
-margin: 10px 0;
-}
+    .countdown span {
+      display: block;
+      font-size: 48px;
+      font-weight: bold;
+      margin: 10px 0;
+      text-transform: uppercase;
+    }
 
-.spacer {
-height: 300px; /* This is the trick */
-}
-</style>
+    .message {
+      font-size: 48px;
+      font-weight: bold;
+      color: red;
+      animation: flash 1s infinite;
+      text-transform: uppercase;
+    }
+
+    @keyframes flash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .spacer {
+      height: 300px; /* Prevent scrolling in iframe */
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-<h1>CUENTA REGRESIVA HASTA EL 10 DE JULIO</h1>
-<div class="countdown" id="countdown">
-<span id="days"></span>
-<span id="hours"></span>
-<span id="minutes"></span>
-<span id="seconds"></span>
-</div>
-</div>
+  <div class="container">
+    <h1>CUENTA REGRESIVA HASTA EL 10 DE JULIO</h1>
+    <div class="countdown" id="countdown">
+      <span id="days"></span>
+      <span id="hours"></span>
+      <span id="minutes"></span>
+      <span id="seconds"></span>
+    </div>
+  </div>
 
-<div class="spacer"></div> <!-- forces extra height -->
+  <div class="spacer"></div>
 
-<script>
-const countdown = () => {
-const endDate = new Date("July 10, 2026 12:00:00").getTime();
-const now = new Date().getTime();
-const timeLeft = endDate - now;
+  <script>
+    const countdown = () => {
+      const endDate = new Date("July 10, 2026 12:00:00").getTime();
+      const now = new Date().getTime();
+      const timeLeft = endDate - now;
 
-const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      const countdownEl = document.getElementById("countdown");
 
-document.getElementById("days").innerText = `${days} días`;
-document.getElementById("hours").innerText = `${hours} horas`;
-document.getElementById("minutes").innerText = `${minutes} minutos`;
-document.getElementById("seconds").innerText = `${seconds} segundos`;
-};
+      if (timeLeft <= 0) {
+        countdownEl.innerHTML = `
+          <span>00 DÍAS</span>
+          <span>00 HORAS</span>
+          <span>00 MINUTOS</span>
+          <span>00 SEGUNDOS</span>
+          <div class="message">¡YA BASTA!</div>
+        `;
+        return;
+      }
 
-countdown();
-setInterval(countdown, 1000);
-</script>
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = `${String(days).padStart(2, '0')} DÍAS`;
+      document.getElementById("hours").innerText = `${String(hours).padStart(2, '0')} HORAS`;
+      document.getElementById("minutes").innerText = `${String(minutes).padStart(2, '0')} MINUTOS`;
+      document.getElementById("seconds").innerText = `${String(seconds).padStart(2, '0')} SEGUNDOS`;
+    };
+
+    countdown();
+    setInterval(countdown, 1000);
+  </script>
 </body>
 </html>
