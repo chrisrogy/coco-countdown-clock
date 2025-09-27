@@ -1,82 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cuenta Regresiva</title>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      background-color: #000;
-    }
-
     body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin: 0;
+      background-color: #1e1e1e; /* Matches site’s dark background */
+      color: #c9c9c9; /* Light gray from Squarespace */
       font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
-      color: #c2c2c2;
-      font-size: 4vw;
-      font-weight: bold;
-      text-transform: uppercase;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
     #countdown {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      line-height: 1.2;
       text-align: center;
+      font-weight: bold;
+      font-size: 3.6vw; /* Very large but responsive */
+      line-height: 1.4;
+      background-color: #1e1e1e;
+      padding: 4vw;
+      box-sizing: border-box;
+      max-width: 90vw;
+      width: 100%;
     }
 
-    .time {
-      margin: 0.5vh 0;
+    .unit {
+      display: block;
+      margin: 1vw 0;
     }
 
     @media (max-width: 600px) {
-      body {
+      #countdown {
         font-size: 6vw;
+        padding: 6vw;
       }
     }
   </style>
 </head>
 <body>
   <div id="countdown">
-    <div id="days" class="time"></div>
-    <div id="hours" class="time"></div>
-    <div id="minutes" class="time"></div>
-    <div id="seconds" class="time"></div>
+    <span class="unit" id="days"></span>
+    <span class="unit" id="hours"></span>
+    <span class="unit" id="minutes"></span>
+    <span class="unit" id="seconds"></span>
   </div>
 
   <script>
     const endDate = new Date("July 10, 2026 12:00:00").getTime();
-
-    const daysEl = document.getElementById("days");
-    const hoursEl = document.getElementById("hours");
-    const minutesEl = document.getElementById("minutes");
-    const secondsEl = document.getElementById("seconds");
+    const countdown = document.getElementById("countdown");
 
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = endDate - now;
 
       if (distance <= 0) {
-        daysEl.innerText = "00 DÍAS";
-        hoursEl.innerText = "00 H";
-        minutesEl.innerText = "00 MIN";
-        secondsEl.innerText = "00 S";
-
-        // Flashing effect
-        setInterval(() => {
-          const visible = daysEl.style.visibility !== "hidden";
-          [daysEl, hoursEl, minutesEl, secondsEl].forEach(el => {
-            el.style.visibility = visible ? "hidden" : "visible";
-          });
-        }, 500);
-
+        countdown.innerHTML = "¡YA BASTA!";
+        countdown.style.fontSize = "6vw";
+        countdown.style.color = "red";
         return;
       }
 
@@ -85,10 +69,10 @@
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      daysEl.innerText = `${days} DÍAS`;
-      hoursEl.innerText = `${hours.toString().padStart(2, '0')} H`;
-      minutesEl.innerText = `${minutes.toString().padStart(2, '0')} MIN`;
-      secondsEl.innerText = `${seconds.toString().padStart(2, '0')} S`;
+      document.getElementById("days").innerHTML = `${days} DÍAS`;
+      document.getElementById("hours").innerHTML = `${hours} H`;
+      document.getElementById("minutes").innerHTML = `${minutes} MIN`;
+      document.getElementById("seconds").innerHTML = `${seconds} S`;
     }
 
     updateCountdown();
