@@ -1,73 +1,82 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Cuenta Regresiva</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background: #ffffff;
-      font-family: Helvetica, Arial, sans-serif;
+      height: 100%;
       overflow: hidden;
+      background-color: #000;
     }
 
-    .container {
+    body {
       display: flex;
-      justify-content: center;
       align-items: center;
-      height: 100vh;
-      box-sizing: border-box;
-      padding: 20px;
-    }
-
-    .countdown-box {
-      background-color: white;
-      padding: 40px 60px;
-      text-align: center;
-      border-radius: 0;
-      box-shadow: none;
-      border: none;
-    }
-
-    .countdown-box div {
-      font-size: 48px;
+      justify-content: center;
+      font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
+      color: #c2c2c2;
+      font-size: 4vw;
       font-weight: bold;
-      margin: 10px 0;
-      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    #countdown {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .time {
+      margin: 0.5vh 0;
     }
 
     @media (max-width: 600px) {
-      .countdown-box div {
-        font-size: 36px;
+      body {
+        font-size: 6vw;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="countdown-box" id="countdown">
-      <!-- Countdown inserts here -->
-    </div>
+  <div id="countdown">
+    <div id="days" class="time"></div>
+    <div id="hours" class="time"></div>
+    <div id="minutes" class="time"></div>
+    <div id="seconds" class="time"></div>
   </div>
 
   <script>
-    const countdownEl = document.getElementById('countdown');
-    const targetDate = new Date("July 10, 2026 12:00:00").getTime();
+    const endDate = new Date("July 10, 2026 12:00:00").getTime();
+
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
 
     function updateCountdown() {
       const now = new Date().getTime();
-      const distance = targetDate - now;
+      const distance = endDate - now;
 
-      if (distance < 0) {
-        countdownEl.innerHTML = `
-          <div>00 DÍAS</div>
-          <div>00 H</div>
-          <div>00 MIN</div>
-          <div>¡YA BASTA!</div>
-        `;
-        countdownEl.style.animation = "flash 1s infinite alternate";
+      if (distance <= 0) {
+        daysEl.innerText = "00 DÍAS";
+        hoursEl.innerText = "00 H";
+        minutesEl.innerText = "00 MIN";
+        secondsEl.innerText = "00 S";
+
+        // Flashing effect
+        setInterval(() => {
+          const visible = daysEl.style.visibility !== "hidden";
+          [daysEl, hoursEl, minutesEl, secondsEl].forEach(el => {
+            el.style.visibility = visible ? "hidden" : "visible";
+          });
+        }, 500);
+
         return;
       }
 
@@ -76,16 +85,14 @@
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      countdownEl.innerHTML = `
-        <div>${days} DÍAS</div>
-        <div>${hours.toString().padStart(2, '0')} H</div>
-        <div>${minutes.toString().padStart(2, '0')} MIN</div>
-        <div>${seconds.toString().padStart(2, '0')} S</div>
-      `;
+      daysEl.innerText = `${days} DÍAS`;
+      hoursEl.innerText = `${hours.toString().padStart(2, '0')} H`;
+      minutesEl.innerText = `${minutes.toString().padStart(2, '0')} MIN`;
+      secondsEl.innerText = `${seconds.toString().padStart(2, '0')} S`;
     }
 
-    setInterval(updateCountdown, 1000);
     updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
