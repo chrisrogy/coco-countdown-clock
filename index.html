@@ -9,7 +9,7 @@
   <style>
     body {
       margin: 0;
-      background-color: #2d2d2d; /* dark page background */
+      background-color: #d6d6d6; /* entire background is light grey now */
       font-family: 'Montserrat', sans-serif;
       display: flex;
       justify-content: center;
@@ -19,31 +19,21 @@
     }
 
     .countdown-box {
-      background-color: #d6d6d6; /* light grey square */
-      width: min(84vmin, 90vw);
-      aspect-ratio: 1 / 1;       /* stays perfectly square */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;   /* centers vertically */
-      align-items: center;
       text-align: center;
     }
 
     .time-unit {
       margin: 2vh 0;
       font-weight: 700;
-      color: red;
-      line-height: 1.1;
-      white-space: nowrap;
     }
 
     .time-number {
-      font-size: 16vw; /* big numbers */
+      font-size: 16vw;   /* BIG numbers */
       color: red;
     }
 
     .time-label {
-      font-size: 5vw; /* smaller labels */
+      font-size: 5vw;    /* smaller labels */
       margin-left: 1vw;
       vertical-align: top;
       color: red;
@@ -61,12 +51,6 @@
     @keyframes flash {
       from { opacity: 1; }
       to   { opacity: 0.3; }
-    }
-
-    @media (max-width: 600px) {
-      .time-number { font-size: 18vw; }
-      .time-label { font-size: 6vw; }
-      #message { font-size: 24vw; }
     }
   </style>
 </head>
