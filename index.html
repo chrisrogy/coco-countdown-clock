@@ -9,7 +9,7 @@
   <style>
     body {
       margin: 0;
-      background-color: #d6d6d6; /* entire background is light grey now */
+      background-color: #2d2d2d; /* dark background */
       font-family: 'Montserrat', sans-serif;
       display: flex;
       justify-content: center;
@@ -19,29 +19,42 @@
     }
 
     .countdown-box {
+      background-color: #d6d6d6; /* light grey box */
+      width: 90vmin;             /* perfect square */
+      height: 90vmin;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly; /* evenly distributes spacing top-to-bottom */
+      align-items: center;
       text-align: center;
+      padding-top: 5%;           /* 👈 extra breathing space above "DÍAS" */
+      box-sizing: border-box;
     }
 
     .time-unit {
-      margin: 2vh 0;
       font-weight: 700;
+      color: red;
+      line-height: 1.1;
+      white-space: nowrap;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
     }
 
     .time-number {
-      font-size: 16vw;   /* BIG numbers */
+      font-size: 14vmin;  /* big numbers */
       color: red;
     }
 
     .time-label {
-      font-size: 5vw;    /* smaller labels */
-      margin-left: 1vw;
-      vertical-align: top;
+      font-size: 4.5vmin; /* smaller labels */
+      margin-left: 0.5vmin;
       color: red;
     }
 
     #message {
       display: none;
-      font-size: 20vw;
+      font-size: 20vmin;
       font-weight: 700;
       color: red;
       animation: flash 1s infinite alternate;
