@@ -9,28 +9,14 @@
   <style>
     body {
       margin: 0;
-      background-color: #2d2d2d; /* dark page background */
+      background-color: #d6d6d6; /* full page is light grey now */
       font-family: 'Montserrat', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       overflow: hidden;
-    }
-
-    .countdown-box {
-      background-color: #d6d6d6;   /* light grey box */
-      height: 90vh;                /* true square */
-      width: 90vh;
-      margin: auto;
-      display: flex;
       flex-direction: column;
-      justify-content: space-evenly; /* spread evenly top-to-bottom */
-      align-items: center;
-      text-align: center;
-      box-sizing: border-box;
-      padding-top: 3vh;             /* breathing room above “DÍAS” */
-      padding-bottom: 3vh;          /* breathing room below “S” */
     }
 
     .time-unit {
@@ -41,15 +27,16 @@
       display: flex;
       align-items: flex-end;
       justify-content: center;
+      margin: 2vh 0;
     }
 
     .time-number {
-      font-size: 14vmin;  /* big red numbers */
+      font-size: 14vmin;
       color: red;
     }
 
     .time-label {
-      font-size: 4.5vmin; /* smaller unit labels */
+      font-size: 4vmin;
       margin-left: 0.5vmin;
       color: red;
     }
@@ -71,7 +58,7 @@
 </head>
 <body>
 
-  <div class="countdown-box" id="countdown">
+  <div id="countdown">
     <div class="time-unit"><span class="time-number" id="days"></span><span class="time-label">DÍAS</span></div>
     <div class="time-unit"><span class="time-number" id="hours"></span><span class="time-label">HRS</span></div>
     <div class="time-unit"><span class="time-number" id="minutes"></span><span class="time-label">MIN</span></div>
