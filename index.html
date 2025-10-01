@@ -1,98 +1,99 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cuenta Regresiva</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      margin: 0;
-      background-color: #2d2d2d; /* Matches Squarespace grey-black */
-      font-family: 'Montserrat', sans-serif;
-      color: #d6d6d6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CUENTA REGRESIVA</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
 
-    .countdown-box {
-      background-color: #2d2d2d; /* Same dark grey */
-      padding: 3vw;
-      border-radius: 0;
-      text-align: center;
-      max-width: 90vw;
-    }
+<style>
+body {
+margin: 0;
+background-color: #2d2d2d; /* Squarespace grey-black */
+font-family: 'Montserrat', sans-serif;
+color: red; /* fallback text color */
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+overflow: hidden;
+}
 
-    .countdown-box span {
-      display: block;
-      font-size: 5vw; /* Large responsive font */
-      font-weight: 700;
-      margin: 1vw 0;
-      line-height: 1.1;
-    }
+.countdown-box {
+background-color: #2d2d2d; /* match background */
+padding: 3vw;
+border-radius: 0;
+text-align: center;
+max-width: 90vw;
+}
 
-    #message {
-      font-size: 6vw;
-      font-weight: 700;
-      color: red;
-      animation: flash 1s infinite alternate;
-    }
+.countdown-box span {
+display: block;
+font-size: 20vw; /* BIG numbers */
+font-weight: 700;
+margin: 1vw 0;
+line-height: 1.1;
+color: red; /* red numbers */
+}
 
-    @keyframes flash {
-      from { opacity: 1; }
-      to { opacity: 0.3; }
-    }
+#message {
+font-size: 20vw; /* BIG final message */
+font-weight: 700;
+color: red; /* red text */
+animation: flash 1s infinite alternate; /* flashing effect */
+}
 
-    @media (max-width: 600px) {
-      .countdown-box span {
-        font-size: 7vw;
-      }
-      #message {
-        font-size: 8vw;
-      }
-    }
-  </style>
+@keyframes flash {
+from { opacity: 1; }
+to { opacity: 0.3; }
+}
+
+@media (max-width: 600px) {
+.countdown-box span {
+font-size: 25vw;
+}
+#message {
+font-size: 25vw;
+}
+}
+</style>
 </head>
 <body>
-  <div class="countdown-box">
-    <div id="countdown">
-      <span id="days"></span>
-      <span id="hours"></span>
-      <span id="minutes"></span>
-      <span id="seconds"></span>
-    </div>
-    <div id="message" style="display: none;">¡YA BASTA!</div>
-  </div>
+<div class="countdown-box" id="countdown">
+<span id="days"></span>
+<span id="hours"></span>
+<span id="minutes"></span>
+<span id="seconds"></span>
+</div>
 
-  <script>
-    const endDate = new Date("July 10, 2026 12:00:00").getTime();
+<div id="message" style="display: none;">¡YA BASTA!</div>
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const timeLeft = endDate - now;
+<script>
+const endDate = new Date("July 10, 2026 12:00:00").getTime();
 
-      if (timeLeft <= 0) {
-        document.getElementById("countdown").style.display = "none";
-        document.getElementById("message").style.display = "block";
-        return;
-      }
+function updateCountdown() {
+const now = new Date().getTime();
+const timeLeft = endDate - now;
 
-      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
-      const seconds = Math.floor((timeLeft / 1000) % 60);
+if (timeLeft <= 0) {
+document.getElementById("countdown").style.display = "none";
+document.getElementById("message").style.display = "block";
+return;
+}
 
-      document.getElementById("days").innerHTML = `${days} DÍAS`;
-      document.getElementById("hours").innerHTML = `${hours} H`;
-      document.getElementById("minutes").innerHTML = `${minutes} MIN`;
-      document.getElementById("seconds").innerHTML = `${seconds} S`;
-    }
+const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+const seconds = Math.floor((timeLeft / 1000) % 60);
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  </script>
+document.getElementById("days").innerHTML = `${days} DÍAS`;
+document.getElementById("hours").innerHTML = `${hours} HRS`;
+document.getElementById("minutes").innerHTML = `${minutes} MIN`;
+document.getElementById("seconds").innerHTML = `${seconds} S`;
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
 </body>
 </html>
