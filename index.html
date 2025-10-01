@@ -1,99 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CUENTA REGRESIVA</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CUENTA REGRESIVA</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      background-color: #d6d6d6; /* full page is light grey now */
-      font-family: 'Montserrat', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-      flex-direction: column;
-    }
+<style>
+body {
+margin: 0;
+background-color: #d6d6d6; /* full page is light grey now */
+font-family: 'Montserrat', sans-serif;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+overflow: hidden;
+flex-direction: column;
+}
 
-    .time-unit {
-      font-weight: 700;
-      color: red;
-      line-height: 1.1;
-      white-space: nowrap;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      margin: 2vh 0;
-    }
+.time-unit {
+font-weight: 700;
+color: red;
+line-height: 1.1;
+white-space: nowrap;
+display: flex;
+align-items: flex-end;
+justify-content: center;
+margin: 2vh 0;
+}
 
-    .time-number {
-      font-size: 14vmin;
-      color: red;
-    }
+.time-number {
+font-size: 14vmin;
+color: red;
+}
 
-    .time-label {
-      font-size: 4vmin;
-      margin-left: 0.5vmin;
-      color: red;
-    }
+.time-label {
+font-size: 4vmin;
+margin-left: 0.5vmin;
+color: red;
+}
 
-    #message {
-      display: none;
-      font-size: 20vmin;
-      font-weight: 700;
-      color: red;
-      animation: flash 1s infinite alternate;
-      text-align: center;
-    }
+#message {
+display: none;
+font-size: 20vmin;
+font-weight: 700;
+color: red;
+animation: flash 1s infinite alternate;
+text-align: center;
+}
 
-    @keyframes flash {
-      from { opacity: 1; }
-      to   { opacity: 0.3; }
-    }
-  </style>
+@keyframes flash {
+from { opacity: 1; }
+to { opacity: 0.3; }
+}
+</style>
 </head>
 <body>
 
-  <div id="countdown">
-    <div class="time-unit"><span class="time-number" id="days"></span><span class="time-label">DÍAS</span></div>
-    <div class="time-unit"><span class="time-number" id="hours"></span><span class="time-label">HRS</span></div>
-    <div class="time-unit"><span class="time-number" id="minutes"></span><span class="time-label">MIN</span></div>
-    <div class="time-unit"><span class="time-number" id="seconds"></span><span class="time-label">S</span></div>
-  </div>
+<div id="countdown">
+<div class="time-unit"><span class="time-number" id="days"></span><span class="time-label">DÍAS</span></div>
+<div class="time-unit"><span class="time-number" id="hours"></span><span class="time-label">HRS</span></div>
+<div class="time-unit"><span class="time-number" id="minutes"></span><span class="time-label">MIN</span></div>
+<div class="time-unit"><span class="time-number" id="seconds"></span><span class="time-label">S</span></div>
+</div>
 
-  <div id="message">¡YA BASTA!</div>
+<div id="message">¡YA BASTA!</div>
 
-  <script>
-    const endDate = new Date("July 10, 2026 12:00:00").getTime();
+<script>
+const endDate = new Date("July 10, 2026 12:00:00").getTime();
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const timeLeft = endDate - now;
+function updateCountdown() {
+const now = new Date().getTime();
+const timeLeft = endDate - now;
 
-      if (timeLeft <= 0) {
-        document.getElementById("countdown").style.display = "none";
-        document.getElementById("message").style.display = "block";
-        return;
-      }
+if (timeLeft <= 0) {
+document.getElementById("countdown").style.display = "none";
+document.getElementById("message").style.display = "block";
+return;
+}
 
-      const days    = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      const hours   = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
-      const seconds = Math.floor((timeLeft / 1000) % 60);
+const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+const seconds = Math.floor((timeLeft / 1000) % 60);
 
-      document.getElementById("days").innerText    = days;
-      document.getElementById("hours").innerText   = hours;
-      document.getElementById("minutes").innerText = minutes;
-      document.getElementById("seconds").innerText = seconds;
-    }
+document.getElementById("days").innerText = days;
+document.getElementById("hours").innerText = hours;
+document.getElementById("minutes").innerText = minutes;
+document.getElementById("seconds").innerText = seconds;
+}
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  </script>
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
 
 </body>
 </html>
+
