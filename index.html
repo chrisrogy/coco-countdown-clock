@@ -2,44 +2,75 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CUENTA REGRESIVA</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
 
   <style>
+    /* ---- easy color/size tweaks ---- */
+    :root{
+      --page-bg: #2d2d2d;    /* page background (dark) */
+      --light-grey: #d6d6d6; /* <— box color to match your light grey */
+      --accent-red: #ff0000; /* numbers + labels + final message */
+      --num-size: 12vw;      /* number size (desktop) */
+      --label-size: 5vw;     /* label size (desktop) */
+      --msg-size: 15vw;      /* final message size */
+    }
+
+    html, body {
+      height: 100%;
+    }
+
     body {
       margin: 0;
-      background-color: #2d2d2d; /* dark background */
+      background-color: var(--page-bg);
       font-family: 'Montserrat', sans-serif;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
-      color: white; /* default for headings */
+      color: #fff; /* for any surrounding headings you might add */
     }
 
+    /* ---- countdown container ---- */
     .countdown-box {
+      background-color: var(--light-grey);   /* light grey box */
+      padding: 3vh 5vw;
       text-align: center;
-      margin-top: 2vh;
-      background-color: transparent; /* no grey box */
+      border-radius: 0;                       /* square edges */
+      box-shadow: none;
+      max-width: 90vw;
     }
 
-    .countdown-box span {
-      display: block;     /* each unit stacked vertically */
-      font-size: 12vw;    /* very big numbers */
+    .time-unit {
+      display: block;
+      margin: 2vh 0;
+    }
+
+    .time-number {
+      display: block;
+      line-height: 1;
       font-weight: 700;
-      margin: 1vw 0;
-      line-height: 1.1;
-      color: red;         /* red font */
+      font-size: var(--num-size);
+      color: var(--accent-red);
+    }
+
+    .time-label {
+      display: block;
+      margin-top: .5vh;
+      font-weight: 700;
+      font-size: var(--label-size);
+      color: var(--accent-red);
+      letter-spacing: .04em;
     }
 
     #message {
-      font-size: 15vw;
+      display: none;
+      margin: 0;
       font-weight: 700;
-      color: red;
+      font-size: var(--msg-size);
+      color: var(--accent-red);
       animation: flash 1s infinite alternate;
+      text-align: center;
     }
 
     @keyframes flash {
@@ -47,25 +78,40 @@
       to   { opacity: 0.3; }
     }
 
+    /* ---- mobile scaling ---- */
     @media (max-width: 600px) {
-      .countdown-box span {
-        font-size: 15vw;
+      :root{
+        --num-size: 15vw;
+        --label-size: 7vw;
+        --msg-size: 20vw;
       }
-      #message {
-        font-size: 20vw;
-      }
+      .countdown-box { padding: 2vh 4vw; }
+      .time-unit { margin: 1.6vh 0; }
     }
   </style>
 </head>
 <body>
+
   <div class="countdown-box" id="countdown">
-    <span id="days"></span>
-    <span id="hours"></span>
-    <span id="minutes"></span>
-    <span id="seconds"></span>
+    <div class="time-unit">
+      <span class="time-number" id="days"></span>
+      <span class="time-label">DÍAS</span>
+    </div>
+    <div class="time-unit">
+      <span class="time-number" id="hours"></span>
+      <span class="time-label">HRS</span>
+    </div>
+    <div class="time-unit">
+      <span class="time-number" id="minutes"></span>
+      <span class="time-label">MIN</span>
+    </div>
+    <div class="time-unit">
+      <span class="time-number" id="seconds"></span>
+      <span class="time-label">S</span>
+    </div>
   </div>
 
-  <div id="message" style="display: none;">¡YA BASTA!</div>
+  <div id="message">¡YA BASTA!</div>
 
   <script>
     const endDate = new Date("July 10, 2026 12:00:00").getTime();
@@ -85,14 +131,15 @@
       const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
       const seconds = Math.floor((timeLeft / 1000) % 60);
 
-      document.getElementById("days").innerHTML = `${days} DÍAS`;
-      document.getElementById("hours").innerHTML = `${hours} HRS`;
-      document.getElementById("minutes").innerHTML = `${minutes} MIN`;
-      document.getElementById("seconds").innerHTML = `${seconds} S`;
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("seconds").innerText = seconds;
     }
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
+
 </body>
 </html>
