@@ -9,7 +9,7 @@
   <style>
     body {
       margin: 0;
-      background-color: #2d2d2d; /* dark background */
+      background-color: #2d2d2d; /* dark page background */
       font-family: 'Montserrat', sans-serif;
       display: flex;
       justify-content: center;
@@ -19,16 +19,18 @@
     }
 
     .countdown-box {
-      background-color: #d6d6d6; /* light grey box */
-      width: 90vmin;             /* perfect square */
-      height: 90vmin;
+      background-color: #d6d6d6;   /* light grey box */
+      height: 90vh;                /* true square */
+      width: 90vh;
+      margin: auto;
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly; /* evenly distributes spacing top-to-bottom */
+      justify-content: space-evenly; /* spread evenly top-to-bottom */
       align-items: center;
       text-align: center;
-      padding-top: 5%;           /* 👈 extra breathing space above "DÍAS" */
       box-sizing: border-box;
+      padding-top: 3vh;             /* breathing room above “DÍAS” */
+      padding-bottom: 3vh;          /* breathing room below “S” */
     }
 
     .time-unit {
@@ -42,12 +44,12 @@
     }
 
     .time-number {
-      font-size: 14vmin;  /* big numbers */
+      font-size: 14vmin;  /* big red numbers */
       color: red;
     }
 
     .time-label {
-      font-size: 4.5vmin; /* smaller labels */
+      font-size: 4.5vmin; /* smaller unit labels */
       margin-left: 0.5vmin;
       color: red;
     }
