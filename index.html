@@ -7,18 +7,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
 
   <style>
-    /* ---- easy color/size tweaks ---- */
-    :root{
-      --page-bg: #2d2d2d;    /* page background (dark) */
-      --light-grey: #d6d6d6; /* <— box color to match your light grey */
-      --accent-red: #ff0000; /* numbers + labels + final message */
-      --num-size: 12vw;      /* number size (desktop) */
-      --label-size: 5vw;     /* label size (desktop) */
-      --msg-size: 15vw;      /* final message size */
-    }
-
-    html, body {
-      height: 100%;
+    :root {
+      --page-bg: #2d2d2d;     /* dark outer background */
+      --box-bg: #d6d6d6;      /* light grey countdown box */
+      --accent-red: #ff0000;  /* red font */
     }
 
     body {
@@ -28,46 +20,38 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #fff; /* for any surrounding headings you might add */
+      height: 100vh;
+      overflow: hidden;
+      color: white;
     }
 
-    /* ---- countdown container ---- */
     .countdown-box {
-      background-color: var(--light-grey);   /* light grey box */
+      background-color: var(--box-bg);  /* lighter grey box */
       padding: 3vh 5vw;
       text-align: center;
-      border-radius: 0;                       /* square edges */
-      box-shadow: none;
-      max-width: 90vw;
+      border-radius: 0;
     }
 
     .time-unit {
-      display: block;
       margin: 2vh 0;
+      color: var(--accent-red);
+      font-weight: 700;
     }
 
     .time-number {
-      display: block;
-      line-height: 1;
-      font-weight: 700;
-      font-size: var(--num-size);
-      color: var(--accent-red);
+      font-size: 12vw;   /* large number */
     }
 
     .time-label {
-      display: block;
-      margin-top: .5vh;
-      font-weight: 700;
-      font-size: var(--label-size);
-      color: var(--accent-red);
-      letter-spacing: .04em;
+      font-size: 4vw;    /* smaller label */
+      margin-left: 1vw;
+      vertical-align: top;
     }
 
     #message {
       display: none;
-      margin: 0;
+      font-size: 15vw;
       font-weight: 700;
-      font-size: var(--msg-size);
       color: var(--accent-red);
       animation: flash 1s infinite alternate;
       text-align: center;
@@ -78,37 +62,20 @@
       to   { opacity: 0.3; }
     }
 
-    /* ---- mobile scaling ---- */
     @media (max-width: 600px) {
-      :root{
-        --num-size: 15vw;
-        --label-size: 7vw;
-        --msg-size: 20vw;
-      }
-      .countdown-box { padding: 2vh 4vw; }
-      .time-unit { margin: 1.6vh 0; }
+      .time-number { font-size: 15vw; }
+      .time-label { font-size: 6vw; }
+      #message { font-size: 20vw; }
     }
   </style>
 </head>
 <body>
 
   <div class="countdown-box" id="countdown">
-    <div class="time-unit">
-      <span class="time-number" id="days"></span>
-      <span class="time-label">DÍAS</span>
-    </div>
-    <div class="time-unit">
-      <span class="time-number" id="hours"></span>
-      <span class="time-label">HRS</span>
-    </div>
-    <div class="time-unit">
-      <span class="time-number" id="minutes"></span>
-      <span class="time-label">MIN</span>
-    </div>
-    <div class="time-unit">
-      <span class="time-number" id="seconds"></span>
-      <span class="time-label">S</span>
-    </div>
+    <div class="time-unit"><span class="time-number" id="days"></span><span class="time-label">DÍAS</span></div>
+    <div class="time-unit"><span class="time-number" id="hours"></span><span class="time-label">HRS</span></div>
+    <div class="time-unit"><span class="time-number" id="minutes"></span><span class="time-label">MIN</span></div>
+    <div class="time-unit"><span class="time-number" id="seconds"></span><span class="time-label">S</span></div>
   </div>
 
   <div id="message">¡YA BASTA!</div>
