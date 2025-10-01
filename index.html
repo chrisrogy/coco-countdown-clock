@@ -9,7 +9,7 @@
   <style>
     body {
       margin: 0;
-      background-color: #2d2d2d; /* will be covered by grey box */
+      background-color: #2d2d2d; /* dark page background */
       font-family: 'Montserrat', sans-serif;
       display: flex;
       justify-content: center;
@@ -19,14 +19,15 @@
     }
 
     .countdown-box {
-      background-color: #d6d6d6; /* light grey fullscreen box */
-      width: 100vw;
-      height: 100vh;
+      background-color: #d6d6d6; /* light grey square */
+      width: min(84vmin, 90vw);
+      aspect-ratio: 1 / 1;
       display: flex;
       flex-direction: column;
-      justify-content: center; /* vertical centering */
-      align-items: center;     /* horizontal centering */
+      justify-content: flex-start;
+      align-items: center;
       text-align: center;
+      padding-top: 6%; /* 👈 shifts numbers down a bit */
     }
 
     .time-unit {
